@@ -232,6 +232,7 @@ extern "C" {
 #define GL_T4F_V4F                                      0x2A28
 #define GL_T2F_C4UB_V3F                                 0x2A29
 #define GL_T2F_C3F_V3F                                  0x2A2A
+#define GL_T2F_N3F_V3F									0x2A2B
 #define GL_CLIP_PLANE0                                  0x3000
 #define GL_CLIP_PLANE1                                  0x3001
 #define GL_CLIP_PLANE2                                  0x3002

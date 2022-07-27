@@ -23,7 +23,7 @@
  
 #include "shared.h"
 
-#define NUM_DISPLAY_LISTS 32
+#define NUM_DISPLAY_LISTS (512)
 
 display_list *curr_display_list = NULL;
 GLboolean display_list_execute;
@@ -149,7 +149,12 @@ GLboolean _vgl_enqueue_list_func(void (*func)(), const char *type, ...) {
 }
 
 void glCallList(GLuint list) {
-	list_chain *l = curr_display_list->head;
+	list_chain *l = NULL;
+	if(list == 0){
+		l = curr_display_list->head;
+	}else{
+		l = display_lists[list].head;
+	}
 	while (l) {
 		switch (l->type) {
 		// No arguments

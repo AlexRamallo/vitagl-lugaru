@@ -875,6 +875,8 @@ void vglSwapBuffers(GLboolean has_commondialog) {
 #else
 	sceKernelSignalSema(gc_mutex, 1);
 #endif
+
+	reset_vertex_data_pool();
 }
 
 void glFinish(void) {

@@ -1040,7 +1040,7 @@ uint8_t reload_ffp_shaders(SceGxmVertexAttribute *attrs, SceGxmVertexStream *str
 
 void _glDrawArrays_FixedFunctionIMPL(GLsizei count) {
 	uint8_t mask_state = reload_ffp_shaders(NULL, NULL);
-
+	
 	// Uploading textures on relative texture units
 	for (int i = 0; i < ffp_mask.num_textures; i++) {
 		sceGxmSetFragmentTexture(gxm_context, i, &texture_slots[texture_units[i].tex_id].gxm_tex);
@@ -1621,6 +1621,34 @@ void glInterleavedArrays(GLenum format, GLsizei stride, const void *pointer) {
 		attributes->componentCount = 3;
 		streams->stride = stride ? stride : 32;
 		break;
+	case GL_T2F_N3F_V3F:
+		// Texcoord2f
+		ffp_vertex_attrib_offsets[1] = (uint32_t)pointer;
+		ffp_vertex_attrib_vbo[1] = vertex_array_unit;
+		attributes = &ffp_vertex_attrib_config[1];
+		streams = &ffp_vertex_stream_config[1];
+		attributes->format = SCE_GXM_ATTRIBUTE_FORMAT_F32;
+		attributes->componentCount = 2;
+		streams->stride = stride ? stride : 32;
+
+		// Normal3f
+		ffp_vertex_attrib_offsets[6] = (uint32_t)pointer + 8;
+		ffp_vertex_attrib_vbo[6] = vertex_array_unit;
+		attributes = &ffp_vertex_attrib_config[6];
+		streams = &ffp_vertex_stream_config[6];
+		attributes->format = SCE_GXM_ATTRIBUTE_FORMAT_F32;
+		attributes->componentCount = 3;
+		streams->stride = stride ? stride : 32;
+
+		// Vertex3f
+		ffp_vertex_attrib_offsets[0] = (uint32_t)pointer + 20;
+		ffp_vertex_attrib_vbo[0] = vertex_array_unit;
+		attributes = &ffp_vertex_attrib_config[0];
+		streams = &ffp_vertex_stream_config[0];
+		attributes->format = SCE_GXM_ATTRIBUTE_FORMAT_F32;
+		attributes->componentCount = 3;
+		streams->stride = stride ? stride : 32;
+		break;
 	default:
 		SET_GL_ERROR_WITH_VALUE(GL_INVALID_ENUM, format)
 	}
@@ -1643,6 +1671,7 @@ void glVertex3f(GLfloat x, GLfloat y, GLfloat z) {
 	legacy_pool_ptr[1] = y;
 	legacy_pool_ptr[2] = z;
 	if (texture_units[1].enabled) { // Multitexturing enabled
+
 		vgl_fast_memcpy(legacy_pool_ptr + 3, &current_vtx.uv.x, sizeof(float) * 2);
 		vgl_fast_memcpy(legacy_pool_ptr + 5, &current_vtx.uv2.x, sizeof(float) * 2);
 		if (lighting_state) {

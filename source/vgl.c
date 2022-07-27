@@ -111,6 +111,9 @@ uint8_t *reserve_data_pool(uint32_t size) {
 	}
 	return res;
 }
+void reset_vertex_data_pool(){
+	vertex_data_pool_ptr = vertex_data_pool;
+}
 #endif
 
 void vector4f_convert_to_local_space(vector4f *out, int x, int y, int width, int height) {

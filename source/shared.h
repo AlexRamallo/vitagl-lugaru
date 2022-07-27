@@ -857,5 +857,6 @@ void vgl_debugger_light_draw(uint32_t *fb); // Draws CPU rendered debugger windo
 
 /* vitaGL.c */
 uint8_t *reserve_data_pool(uint32_t size);
+void reset_vertex_data_pool();
 
 #endif
