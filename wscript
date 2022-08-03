@@ -5,8 +5,10 @@ def configure(conf):
 	conf.env.append_unique('DEFINES', 'HAVE_CIRCULAR_VERTEX_POOL')
 	conf.env.append_unique('DEFINES', 'DISABLE_TEXTURE_COMBINER')
 
-	if "release" not in conf.variant:
-		conf.env.append_unique('DEFINES', 'NO_DEBUG=1')
+	if "release" in conf.cmd:
+		assert(0)
+		conf.env.append_unique('DEFINES', 'SKIP_ERROR_HANDLING')
+		conf.env.append_unique('DEFINES', 'MATH_SPEEDHACK')
 	else:
 		conf.env.append_unique('DEFINES', 'LOG_ERRORS')
 		conf.env.append_unique('DEFINES', 'FILE_LOG')
@@ -19,5 +21,5 @@ def build(bld):
 		features="c cstlib",
 		includes = "source",
 		export_includes = "source",
-		source = bld.path.ant_glob("source/**/*.c"),
+		source = bld.path.ant_glob(["source/**/*.c", "source/**/*.cpp"]),
 	)
