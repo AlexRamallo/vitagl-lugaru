@@ -108,7 +108,8 @@ char *get_gxm_error_literal(uint32_t code);
 void vgl_file_log(const char *format, ...);
 #define vgl_log vgl_file_log
 #elif defined(LOG_ERRORS)
-#define vgl_log sceClibPrintf
+//#define vgl_log sceClibPrintf
+#define vgl_log printf
 #else
 #define vgl_log(...)
 #endif

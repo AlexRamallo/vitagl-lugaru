@@ -6,12 +6,14 @@ def configure(conf):
 	conf.env.append_unique('DEFINES', 'DISABLE_TEXTURE_COMBINER')
 
 	if "release" in conf.cmd:
-		assert(0)
 		conf.env.append_unique('DEFINES', 'SKIP_ERROR_HANDLING')
 		conf.env.append_unique('DEFINES', 'MATH_SPEEDHACK')
+		conf.env.append_unique('DEFINES', 'DRAW_SPEEDHACK')
 	else:
 		conf.env.append_unique('DEFINES', 'LOG_ERRORS')
 		conf.env.append_unique('DEFINES', 'FILE_LOG')
+		conf.env.append_unique('DEFINES', 'MATH_SPEEDHACK')
+		conf.env.append_unique('DEFINES', 'DRAW_SPEEDHACK')
 		if conf.options.HAVE_DEBUGGER:
 			conf.env.append_unique('DEFINES', 'HAVE_DEBUG_INTERFACE=1')
 

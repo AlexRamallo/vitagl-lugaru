@@ -30,6 +30,7 @@ static matrix4x4 projection_matrix_stack[GENERIC_STACK_DEPTH]; // Projection mat
 static uint8_t projection_stack_counter = 0; // Projection matrices stack counter
 GLboolean mvp_modified = GL_TRUE; // Check if ModelViewProjection matrix needs to be recreated
 
+#include <assert.h>
 /*
  * ------------------------------
  * - IMPLEMENTATION STARTS HERE -
@@ -383,6 +384,7 @@ void glPopMatrix(void) {
 #ifndef SKIP_ERROR_HANDLING
 		// Error handling
 		if (modelview_stack_counter == 0) {
+			assert(0 && "Underflow with modelview matrix");
 			SET_GL_ERROR(GL_STACK_UNDERFLOW)
 		}
 #endif
@@ -396,6 +398,7 @@ void glPopMatrix(void) {
 #ifndef SKIP_ERROR_HANDLING
 		// Error handling
 		if (projection_stack_counter == 0) {
+			assert(0 && "Underflow with projection matrix");
 			SET_GL_ERROR(GL_STACK_UNDERFLOW)
 		}
 #endif
@@ -411,6 +414,7 @@ void glPopMatrix(void) {
 #ifndef SKIP_ERROR_HANDLING
 		// Error handling
 		if (tex_unit->texture_stack_counter == 0) {
+			assert(0 && "Underflow with texture matrix");
 			SET_GL_ERROR(GL_STACK_UNDERFLOW)
 		}
 #endif

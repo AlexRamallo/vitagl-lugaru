@@ -42,7 +42,7 @@ void matrix4x4_multiply(matrix4x4 dst, const matrix4x4 src1, const matrix4x4 src
 
 void matrix4x4_init_rotation_x(matrix4x4 m, float rad) {
 	float cs[2];
-	sincosf_c(rad, cs);
+	sincosf_neon(rad, cs);
 
 	matrix4x4_identity(m);
 
@@ -54,7 +54,7 @@ void matrix4x4_init_rotation_x(matrix4x4 m, float rad) {
 
 void matrix4x4_init_rotation_y(matrix4x4 m, float rad) {
 	float cs[2];
-	sincosf_c(rad, cs);
+	sincosf_neon(rad, cs);
 
 	matrix4x4_identity(m);
 
@@ -66,7 +66,7 @@ void matrix4x4_init_rotation_y(matrix4x4 m, float rad) {
 
 void matrix4x4_init_rotation_z(matrix4x4 m, float rad) {
 	float cs[2];
-	sincosf_c(rad, cs);
+	sincosf_neon(rad, cs);
 
 	matrix4x4_identity(m);
 
